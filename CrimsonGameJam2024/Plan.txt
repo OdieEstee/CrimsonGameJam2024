@@ -1,0 +1,32 @@
+11/9 PLAN
+
+(
+Tint textures with sprite.setColor(r, g, b, a)
+with a being opacity amount 0 - 255
+)
+
+BEFORE: ADD BOUNDS CHECKING AND COLLISION
+BEFORE: FIX FASTER DIRECTIONAL MOVEMENT
+BEFORE: ADD TEST ENVIROMENT
+
+1. Add combat state with animations and textures
+	ADD MOUSE POSITION CHECK TO HAVE CORRECT TEXTURE OVERLAY
+2. Add bullet logic (100% accurate when standing still, spread while moving) + cloning with bullet clock
+	(Maybe split between basic bullet, then is inherited for Player Bullet and Enemey Bullet)
+	Add basic pistol weapon
+	Add basic full auto weapon
+3. Add dash mechanic
+4. Add enemy object
+5. Add damange mechanic
+	(THIS INCLUDES ENEMY HEALTH MECHANIC)
+	Add melee mechanic
+	Add enemy boss stun mechanic with UI
+6. Add player health mechanic with UI
+	Also include health pickups and max health pickups
+7. Add hit mechanic and damage feedback
+8. Design and implement first enemy (basic follower)
+9. Design and implement first boss (priest)
+10. Add story scenes up until first boss
+...
+
+SPLIT UP WORKLOAD, MAYBE ASSETS AND PROGRAM?

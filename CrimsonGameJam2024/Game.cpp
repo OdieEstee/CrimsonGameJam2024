@@ -42,6 +42,7 @@ public:
 			if(animationClock.getElapsedTime().asMilliseconds() >= 500)
 				animationClock.restart();
 			weapon.update(player, window);
+
 			Color color(146, 146, 146);
 			window.clear(color);
 			player.draw(window);

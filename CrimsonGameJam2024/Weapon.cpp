@@ -36,10 +36,12 @@ public:
 		Vector2i mousePos = Mouse::getPosition(window);
 		Vector2f playerPos = player.getPosition();
 
+		//Calculate angle between cursor and weapon sprite at horizon
 		float deltaX = mousePos.x - playerPos.x;
 		float deltaY = mousePos.y - playerPos.y;
 		float alpha = atan2(deltaY, deltaX);
 
+		//Calculate distance between cursor and weapon sprite
 		float weaponX = playerPos.x + rotationRadius * cos(alpha);
 		float weaponY = playerPos.y + rotationRadius * sin(alpha);
 
