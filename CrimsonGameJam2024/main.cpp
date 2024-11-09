@@ -1,17 +1,9 @@
-#include "SFML/Graphics.hpp"
+#include "Game.cpp"
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(800, 800), "Test");
-	sf::Event e;
+	Game game;
 
-	while(window.isOpen()) 
-	{
-		while (window.pollEvent(e))
-		{
-			if (e.type == sf::Event::Closed) {
-				window.close();
-			}
-		}
-	}
+	game.run();
+
 	return 0;
 }
