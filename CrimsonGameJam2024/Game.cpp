@@ -1,5 +1,5 @@
 #pragma once
-#include "Player.cpp"
+#include "Weapon.cpp"
 
 class Game {
 private:
@@ -9,6 +9,9 @@ public:
 	void run() {
 		//Initialize Player
 		Player player(5.0f, 5.0f);
+
+		//Initialize Weapon
+		Weapon weapon(5.0f, 5.0f);
 
 		//Create window
 		RenderWindow window(VideoMode(1920, 1080), "Cultist");
@@ -38,8 +41,11 @@ public:
 			player.update(animationClock);
 			if(animationClock.getElapsedTime().asMilliseconds() >= 500)
 				animationClock.restart();
-			window.clear();
+			weapon.update(player, window);
+			Color color(146, 146, 146);
+			window.clear(color);
 			player.draw(window);
+			weapon.draw(window);
 			window.display();
 		}
 	}

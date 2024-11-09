@@ -1,5 +1,10 @@
 #pragma once
-#include "Bullet.cpp"
+
+#include "SFML/Graphics.hpp"
+#include <iostream>
+
+using namespace std;
+using namespace sf;
 
 class Player {
 private:
@@ -62,6 +67,8 @@ public:
 		//Load textures and set initial texture
 		loadTextures();
 		sprite.setTexture(DownIdleTexture);
+
+		sprite.setOrigin((sprite.getLocalBounds().width) / 2, (sprite.getLocalBounds().height / 2) - 2);
 	}
 
 	//Draw sprite to a window
@@ -359,5 +366,10 @@ public:
 		sprite.move(movement);
 	}
 
-
+	Vector2f getPosition()
+	{
+		return sprite.getPosition();
+	}
 };
+
+#pragma once
