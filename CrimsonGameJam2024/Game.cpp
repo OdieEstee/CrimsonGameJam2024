@@ -8,13 +8,15 @@ public:
 	//Main run function
 	void run() {
 		//Initialize Player
-		Player player(.5, .5);
-		player.setTexture("Textures/R.png");
+		Player player(5.0f, 5.0f);
 
 		//Create window
 		RenderWindow window(VideoMode(1920, 1080), "Cultist");
 		window.setFramerateLimit(60);
 
+		//Initialize Animation Clock
+		Clock animationClock;
+		
 		while (window.isOpen())
 		{
 			Event event;
@@ -33,7 +35,9 @@ public:
 			}
 
 			//Update
-			player.update();
+			player.update(animationClock);
+			if(animationClock.getElapsedTime().asMilliseconds() >= 500)
+				animationClock.restart();
 			window.clear();
 			player.draw(window);
 			window.display();
