@@ -49,9 +49,10 @@ public:
 		window.draw(sprite);
 	}
 
-
+	//Process keyboard inputs
 	void processEvents(Keyboard::Key key, bool checkPressed) 
 	{
+		//Set specific boolean to true based off of keyboard input
 		if (checkPressed) {
 			if (key == Keyboard::W)
 				up = true;
@@ -63,6 +64,7 @@ public:
 				right = true;
 		}
 
+		//Set specific boolean to false based off of keyboard input
 		else {
 			if (key == Keyboard::W)
 				up = false;
@@ -75,8 +77,10 @@ public:
 		}
 	}
 
+	//Update function for every frame (60 times a second)
 	void update()
 	{
+		//Adjust movement vector based off of keyboard input
 		Vector2f movement;
 		if (up)
 			movement.y -= 1.0f * yVelocity;
@@ -87,6 +91,7 @@ public:
 		if (right)
 			movement.x += 1.0f * xVelocity;
 
+		//Move sprite
 		sprite.move(movement);
 	}
 
