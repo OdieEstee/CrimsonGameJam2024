@@ -10,6 +10,5 @@ int main() {
 	game.spawnWeapon();
 	game.run();
 
-
 	return 0;
 }

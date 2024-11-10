@@ -69,6 +69,7 @@ public:
 						{
 							if (event.key.code == Keyboard::Space)
 							{
+								
 								weapon.shoot(bulletClock, window);
 								if (bulletClock.getElapsedTime().asMilliseconds() >= 100)
 								{

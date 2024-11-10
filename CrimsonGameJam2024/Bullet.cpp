@@ -16,7 +16,8 @@ private:
 public:
 	Bullet(Vector2f pos, RenderWindow &window)
 	{
-		sprite.setOrigin((sprite.getLocalBounds().width) / 2, (sprite.getLocalBounds().height / 2) - 2);
+		sf::Vector2u textureSize = texture.getSize();
+		sprite.setOrigin(textureSize.x / 2.0f, textureSize.y / 2.0f);
 
 		sprite.setScale(5.0f, 5.0f);
 
