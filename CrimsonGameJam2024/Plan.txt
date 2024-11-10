@@ -13,8 +13,8 @@ BEFORE: ADD TEST ENVIROMENT DONE DONE
 	ADD MOUSE POSITION CHECK TO HAVE CORRECT TEXTURE OVERLAY DONE
 2. Add bullet logic (100% accurate when standing still, spread while moving) + cloning with bullet clock
 	(Maybe split between basic bullet, then is inherited for Player Bullet and Enemey Bullet)
-	Add basic pistol weapon
-	Add basic full auto weapon
+	Add basic pistol weapon DONE
+	Add basic full auto weapon DONE
 3. Add dash mechanic
 4. Add enemy object
 5. Add damange mechanic
