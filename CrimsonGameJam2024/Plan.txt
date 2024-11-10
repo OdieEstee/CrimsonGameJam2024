@@ -9,8 +9,8 @@ BEFORE: ADD BOUNDS CHECKING AND COLLISION DONE
 BEFORE: FIX FASTER DIRECTIONAL MOVEMENT DONE
 BEFORE: ADD TEST ENVIROMENT DONE DONE
 
-1. Add combat state with animations and textures
-	ADD MOUSE POSITION CHECK TO HAVE CORRECT TEXTURE OVERLAY
+1. Add combat state with animations and textures DONE
+	ADD MOUSE POSITION CHECK TO HAVE CORRECT TEXTURE OVERLAY DONE
 2. Add bullet logic (100% accurate when standing still, spread while moving) + cloning with bullet clock
 	(Maybe split between basic bullet, then is inherited for Player Bullet and Enemey Bullet)
 	Add basic pistol weapon

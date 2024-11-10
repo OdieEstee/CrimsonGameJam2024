@@ -25,6 +25,9 @@ public:
 		//Initialize Weapon
 		Weapon weapon(5.0f, 5.0f);
 
+		//Bullet clock
+		Clock bulletClock;
+
 		//Create window
 		RenderWindow window(VideoMode(1920, 1080), "Cultist");
 		window.setFramerateLimit(60);
@@ -60,6 +63,20 @@ public:
 							}
 						}
 					}
+					if (spawnWeaponBool && player.getCombatStance())
+					{
+						if (event.type == Event::KeyPressed)
+						{
+							if (event.key.code == Keyboard::Space)
+							{
+								weapon.shoot(bulletClock, window);
+								if (bulletClock.getElapsedTime().asMilliseconds() >= 100)
+								{
+									bulletClock.restart();
+								}
+							}
+						}
+					}
 				}
 				
 			}
@@ -71,6 +88,10 @@ public:
 			{
 				weapon.update(player, window);
 				weapon.draw(window);
+				for (Bullet& bullet : weapon.getBullets())
+				{
+					bullet.draw(window);
+				}
 			}
 
 			if (spawnPlayerBool)
@@ -85,6 +106,10 @@ public:
 			{
 				weapon.update(player, window);
 				weapon.draw(window);
+				for (Bullet& bullet : weapon.getBullets())
+				{
+					bullet.draw(window);
+				}
 			}
 			window.display();
 		}
