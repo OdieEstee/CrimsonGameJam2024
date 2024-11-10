@@ -26,6 +26,22 @@ private:
 	Texture RightWalk1Texture;
 	Texture RightWalk2Texture;
 	
+	Texture CSUpIdleTexture;
+	Texture CSUpWalk1Texture;
+	Texture CSUpWalk2Texture;
+
+	Texture CSDownIdleTexture;
+	Texture CSDownWalk1Texture;
+	Texture CSDownWalk2Texture;
+
+	Texture CSLeftIdleTexture;
+	Texture CSLeftWalk1Texture;
+	Texture CSLeftWalk2Texture;
+
+	Texture CSRightIdleTexture;
+	Texture CSRightWalk1Texture;
+	Texture CSRightWalk2Texture;
+
 	//Booleans for pressed key
 	bool up;
 	bool down;
@@ -39,11 +55,20 @@ private:
 	bool recentRight;
 
 	//Velocity constants
-	int xVelocity = 5;
-	int yVelocity = 5;
+	float xVelocity = 10.0f;
+	float yVelocity = 10.0f;
 
 	//Animation Clock constant
 	int animationClockMil = 500;
+
+	//Global bounds offset constants
+	int upBoundOffset = 50;
+	int downBoundOffset = 53;
+	int leftBoundOffset = 37;
+	int rightBoundOffset = 44;
+
+	//Combat stance boolean
+	bool combatStance;
 
 public:
 	//Constructor with parameters for scale (defualt = 1)
@@ -64,11 +89,104 @@ public:
 		recentLeft = false;
 		recentRight = false;
 
+		combatStance = false;
+
 		//Load textures and set initial texture
 		loadTextures();
 		sprite.setTexture(DownIdleTexture);
 
 		sprite.setOrigin((sprite.getLocalBounds().width) / 2, (sprite.getLocalBounds().height / 2) - 2);
+
+		sprite.setPosition(500, 500);
+	}
+
+	bool getCombatStance()
+	{
+		return combatStance;
+	}
+
+	void setCombatStance(bool set)
+	{
+		if (combatStance == set)
+		{
+			return;
+		}
+		else
+		{
+			if (sprite.getTexture() == &UpIdleTexture)
+			{
+				sprite.setTexture(CSUpIdleTexture);
+			}
+			else if (sprite.getTexture() == &DownIdleTexture)
+			{
+				sprite.setTexture(CSDownIdleTexture);
+			}
+			else if (sprite.getTexture() == &LeftIdleTexture)
+			{
+				sprite.setTexture(CSLeftIdleTexture);
+			}
+			else if (sprite.getTexture() == &RightIdleTexture)
+			{
+				sprite.setTexture(CSRightIdleTexture);
+			}
+			else if (sprite.getTexture() == &UpWalk1Texture || sprite.getTexture() == &UpWalk2Texture)
+			{
+				sprite.setTexture(CSUpWalk1Texture);
+			}
+			else if (sprite.getTexture() == &DownWalk1Texture || sprite.getTexture() == &DownWalk2Texture)
+			{
+				sprite.setTexture(CSDownWalk1Texture);
+			}
+			else if (sprite.getTexture() == &LeftWalk1Texture || sprite.getTexture() == &LeftWalk2Texture)
+			{
+				sprite.setTexture(CSLeftWalk1Texture);
+			}
+			else if (sprite.getTexture() == &RightWalk1Texture || sprite.getTexture() == &RightWalk2Texture)
+			{
+				sprite.setTexture(CSRightWalk1Texture);
+			}
+
+			else if (sprite.getTexture() == &CSUpIdleTexture)
+			{
+				sprite.setTexture(UpIdleTexture);
+			}
+			else if (sprite.getTexture() == &CSDownIdleTexture)
+			{
+				sprite.setTexture(DownIdleTexture);
+			}
+			else if (sprite.getTexture() == &CSLeftIdleTexture)
+			{
+				sprite.setTexture(LeftIdleTexture);
+			}
+			else if (sprite.getTexture() == &CSRightIdleTexture)
+			{
+				sprite.setTexture(RightIdleTexture);
+			}
+			else if (sprite.getTexture() == &CSUpWalk1Texture || sprite.getTexture() == &CSUpWalk2Texture)
+			{
+				sprite.setTexture(UpWalk1Texture);
+			}
+			else if (sprite.getTexture() == &CSDownWalk1Texture || sprite.getTexture() == &CSDownWalk2Texture)
+			{
+				sprite.setTexture(DownWalk1Texture);
+			}
+			else if (sprite.getTexture() == &CSLeftWalk1Texture || sprite.getTexture() == &CSLeftWalk2Texture)
+			{
+				sprite.setTexture(LeftWalk1Texture);
+			}
+			else if (sprite.getTexture() == &CSRightWalk1Texture || sprite.getTexture() == &CSRightWalk2Texture)
+			{
+				sprite.setTexture(RightWalk1Texture);
+			}
+			if (set)
+			{
+				combatStance = true;
+			}
+			else
+			{
+				combatStance = false;
+			}
+		}
 	}
 
 	//Draw sprite to a window
@@ -95,6 +213,22 @@ public:
 		RightIdleTexture.loadFromFile("Textures/RightIdle.png");
 		RightWalk1Texture.loadFromFile("Textures/RightWalk1.png");
 		RightWalk2Texture.loadFromFile("Textures/RightWalk2.png");
+
+		CSUpIdleTexture.loadFromFile("Textures/Combat Stance/CSUpIdle.png");
+		CSUpWalk1Texture.loadFromFile("Textures/Combat Stance/CSUpWalk1.png");
+		CSUpWalk2Texture.loadFromFile("Textures/Combat Stance/CSUpWalk2.png");
+
+		CSDownIdleTexture.loadFromFile("Textures/Combat Stance/CSDownIdle.png");
+		CSDownWalk1Texture.loadFromFile("Textures/Combat Stance/CSDownWalk1.png");
+		CSDownWalk2Texture.loadFromFile("Textures/Combat Stance/CSDownWalk2.png");
+
+		CSLeftIdleTexture.loadFromFile("Textures/Combat Stance/CSLeftIdle.png");
+		CSLeftWalk1Texture.loadFromFile("Textures/Combat Stance/CSLeftWalk1.png");
+		CSLeftWalk2Texture.loadFromFile("Textures/Combat Stance/CSLeftWalk2.png");
+
+		CSRightIdleTexture.loadFromFile("Textures/Combat Stance/CSRightIdle.png");
+		CSRightWalk1Texture.loadFromFile("Textures/Combat Stance/CSRightWalk1.png");
+		CSRightWalk2Texture.loadFromFile("Textures/Combat Stance/CSRightWalk2.png");
 	}
 
 	//Process keyboard inputs
@@ -231,108 +365,266 @@ public:
 	//Function to handle animation logic
 	void animationHandler(Clock animationClock)
 	{
-		
-		if (recentUp || (up && !recentDown && !recentLeft && !recentRight))
-		{
-			if (sprite.getTexture() != &UpWalk1Texture && sprite.getTexture() != &UpWalk2Texture)
+		if(!combatStance)
+		{ 
+			if (recentUp || (up && !recentDown && !recentLeft && !recentRight))
 			{
-				sprite.setTexture(UpWalk1Texture);
-			}
-			else
-			{
-				if (animationClock.getElapsedTime().asMilliseconds() >= animationClockMil)
+				if (sprite.getTexture() != &UpWalk1Texture && sprite.getTexture() != &UpWalk2Texture)
 				{
-					if (sprite.getTexture() != &UpWalk2Texture)
+					sprite.setTexture(UpWalk1Texture);
+				}
+				else
+				{
+					if (animationClock.getElapsedTime().asMilliseconds() >= animationClockMil)
 					{
-						sprite.setTexture(UpWalk2Texture);
-					}
-					else
-					{
-						sprite.setTexture(UpWalk1Texture);
+						if (sprite.getTexture() != &UpWalk2Texture)
+						{
+							sprite.setTexture(UpWalk2Texture);
+						}
+						else
+						{
+							sprite.setTexture(UpWalk1Texture);
+						}
 					}
 				}
 			}
-		}
-		if (recentDown || (down && !recentUp && !recentLeft && !recentRight))
-		{
-			if (sprite.getTexture() != &DownWalk1Texture && sprite.getTexture() != &DownWalk2Texture)
+			if (recentDown || (down && !recentUp && !recentLeft && !recentRight))
 			{
-				sprite.setTexture(DownWalk1Texture);
-			}
-			else
-			{
-				if (animationClock.getElapsedTime().asMilliseconds() >= animationClockMil)
+				if (sprite.getTexture() != &DownWalk1Texture && sprite.getTexture() != &DownWalk2Texture)
 				{
-					if (sprite.getTexture() != &DownWalk2Texture)
+					sprite.setTexture(DownWalk1Texture);
+				}
+				else
+				{
+					if (animationClock.getElapsedTime().asMilliseconds() >= animationClockMil)
 					{
-						sprite.setTexture(DownWalk2Texture);
-					}
-					else
-					{
-						sprite.setTexture(DownWalk1Texture);
+						if (sprite.getTexture() != &DownWalk2Texture)
+						{
+							sprite.setTexture(DownWalk2Texture);
+						}
+						else
+						{
+							sprite.setTexture(DownWalk1Texture);
+						}
 					}
 				}
 			}
-		}
-		if (recentLeft || (left && !recentUp && !recentDown && !recentRight))
-		{
-			if (sprite.getTexture() != &LeftWalk1Texture && sprite.getTexture() != &LeftWalk2Texture)
+			if (recentLeft || (left && !recentUp && !recentDown && !recentRight))
 			{
-				sprite.setTexture(LeftWalk1Texture);
-			}
-			else
-			{
-				if (animationClock.getElapsedTime().asMilliseconds() >= animationClockMil)
+				if (sprite.getTexture() != &LeftWalk1Texture && sprite.getTexture() != &LeftWalk2Texture)
 				{
-					if (sprite.getTexture() != &LeftWalk2Texture)
+					sprite.setTexture(LeftWalk1Texture);
+				}
+				else
+				{
+					if (animationClock.getElapsedTime().asMilliseconds() >= animationClockMil)
 					{
-						sprite.setTexture(LeftWalk2Texture);
-					}
-					else
-					{
-						sprite.setTexture(LeftWalk1Texture);
+						if (sprite.getTexture() != &LeftWalk2Texture)
+						{
+							sprite.setTexture(LeftWalk2Texture);
+						}
+						else
+						{
+							sprite.setTexture(LeftWalk1Texture);
+						}
 					}
 				}
 			}
-		}
-		if (recentRight || (right && !recentUp && !recentDown && !recentLeft && !recentRight))
-		{
-			if (sprite.getTexture() != &RightWalk1Texture && sprite.getTexture() != &RightWalk2Texture)
+			if (recentRight || (right && !recentUp && !recentDown && !recentLeft && !recentRight))
 			{
-				sprite.setTexture(RightWalk1Texture);
-			}
-			else
-			{
-				if (animationClock.getElapsedTime().asMilliseconds() >= animationClockMil)
+				if (sprite.getTexture() != &RightWalk1Texture && sprite.getTexture() != &RightWalk2Texture)
 				{
-					if (sprite.getTexture() != &RightWalk2Texture)
+					sprite.setTexture(RightWalk1Texture);
+				}
+				else
+				{
+					if (animationClock.getElapsedTime().asMilliseconds() >= animationClockMil)
 					{
-						sprite.setTexture(RightWalk2Texture);
-					}
-					else
-					{
-						sprite.setTexture(RightWalk1Texture);
+						if (sprite.getTexture() != &RightWalk2Texture)
+						{
+							sprite.setTexture(RightWalk2Texture);
+						}
+						else
+						{
+							sprite.setTexture(RightWalk1Texture);
+						}
 					}
 				}
 			}
+			if (!up && !down && !left && !right)
+			{
+				if (sprite.getTexture() == &UpWalk1Texture || sprite.getTexture() == &UpWalk2Texture)
+				{
+					sprite.setTexture(UpIdleTexture);
+				}
+				if (sprite.getTexture() == &DownWalk1Texture || sprite.getTexture() == &DownWalk2Texture)
+				{
+					sprite.setTexture(DownIdleTexture);
+				}
+				if (sprite.getTexture() == &LeftWalk1Texture || sprite.getTexture() == &LeftWalk2Texture)
+				{
+					sprite.setTexture(LeftIdleTexture);
+				}
+				if (sprite.getTexture() == &RightWalk1Texture || sprite.getTexture() == &RightWalk2Texture)
+				{
+					sprite.setTexture(RightIdleTexture);
+				}
+			}
 		}
-		if (!up && !down && !left && !right)
+
+		else
 		{
-			if (sprite.getTexture() == &UpWalk1Texture || sprite.getTexture() == &UpWalk2Texture)
+			if (recentUp || (up && !recentDown && !recentLeft && !recentRight))
 			{
-				sprite.setTexture(UpIdleTexture);
+				if (sprite.getTexture() != &CSUpWalk1Texture && sprite.getTexture() != &CSUpWalk2Texture)
+				{
+					sprite.setTexture(CSUpWalk1Texture);
+				}
+				else
+				{
+					if (animationClock.getElapsedTime().asMilliseconds() >= animationClockMil)
+					{
+						if (sprite.getTexture() != &CSUpWalk2Texture)
+						{
+							sprite.setTexture(CSUpWalk2Texture);
+						}
+						else
+						{
+							sprite.setTexture(CSUpWalk1Texture);
+						}
+					}
+				}
 			}
-			if (sprite.getTexture() == &DownWalk1Texture || sprite.getTexture() == &DownWalk2Texture)
+			if (recentDown || (down && !recentUp && !recentLeft && !recentRight))
 			{
-				sprite.setTexture(DownIdleTexture);
+				if (sprite.getTexture() != &CSDownWalk1Texture && sprite.getTexture() != &CSDownWalk2Texture)
+				{
+					sprite.setTexture(CSDownWalk1Texture);
+				}
+				else
+				{
+					if (animationClock.getElapsedTime().asMilliseconds() >= animationClockMil)
+					{
+						if (sprite.getTexture() != &CSDownWalk2Texture)
+						{
+							sprite.setTexture(CSDownWalk2Texture);
+						}
+						else
+						{
+							sprite.setTexture(CSDownWalk1Texture);
+						}
+					}
+				}
 			}
-			if (sprite.getTexture() == &LeftWalk1Texture || sprite.getTexture() == &LeftWalk2Texture)
+			if (recentLeft || (left && !recentUp && !recentDown && !recentRight))
 			{
-				sprite.setTexture(LeftIdleTexture);
+				if (sprite.getTexture() != &CSLeftWalk1Texture && sprite.getTexture() != &CSLeftWalk2Texture)
+				{
+					sprite.setTexture(CSLeftWalk1Texture);
+				}
+				else
+				{
+					if (animationClock.getElapsedTime().asMilliseconds() >= animationClockMil)
+					{
+						if (sprite.getTexture() != &CSLeftWalk2Texture)
+						{
+							sprite.setTexture(CSLeftWalk2Texture);
+						}
+						else
+						{
+							sprite.setTexture(CSLeftWalk1Texture);
+						}
+					}
+				}
 			}
-			if (sprite.getTexture() == &RightWalk1Texture || sprite.getTexture() == &RightWalk2Texture)
+			if (recentRight || (right && !recentUp && !recentDown && !recentLeft && !recentRight))
 			{
-				sprite.setTexture(RightIdleTexture);
+				if (sprite.getTexture() != &CSRightWalk1Texture && sprite.getTexture() != &CSRightWalk2Texture)
+				{
+					sprite.setTexture(CSRightWalk1Texture);
+				}
+				else
+				{
+					if (animationClock.getElapsedTime().asMilliseconds() >= animationClockMil)
+					{
+						if (sprite.getTexture() != &CSRightWalk2Texture)
+						{
+							sprite.setTexture(CSRightWalk2Texture);
+						}
+						else
+						{
+							sprite.setTexture(CSRightWalk1Texture);
+						}
+					}
+				}
+			}
+			if (!up && !down && !left && !right)
+			{
+				if (sprite.getTexture() == &CSUpWalk1Texture || sprite.getTexture() == &CSUpWalk2Texture)
+				{
+					sprite.setTexture(CSUpIdleTexture);
+				}
+				if (sprite.getTexture() == &CSDownWalk1Texture || sprite.getTexture() == &CSDownWalk2Texture)
+				{
+					sprite.setTexture(CSDownIdleTexture);
+				}
+				if (sprite.getTexture() == &CSLeftWalk1Texture || sprite.getTexture() == &CSLeftWalk2Texture)
+				{
+					sprite.setTexture(CSLeftIdleTexture);
+				}
+				if (sprite.getTexture() == &CSRightWalk1Texture || sprite.getTexture() == &CSRightWalk2Texture)
+				{
+					sprite.setTexture(CSRightIdleTexture);
+				}
+			}
+		}
+	}
+
+	//Bounds handler
+	void boundsHandler(Vector2f* movement)
+	{
+		if (sprite.getPosition().x + movement->x < (0 + leftBoundOffset))
+		{
+			if (sprite.getPosition().x != 0 + leftBoundOffset)
+			{
+				movement->x = -(sprite.getPosition().x) + leftBoundOffset;
+			}
+			else
+			{
+				movement->x = 0;
+			}
+		}
+		if (sprite.getPosition().x + movement->x > (1920 - rightBoundOffset))
+		{
+			if (sprite.getPosition().x != 1920 - rightBoundOffset)
+			{
+				movement->x = (1920 - rightBoundOffset) - sprite.getPosition().x;
+			}
+			else
+			{
+				movement->x = 0;
+			}
+		}
+		if (sprite.getPosition().y + movement->y < (0 + upBoundOffset))
+		{
+			if (sprite.getPosition().y != 0 + upBoundOffset)
+			{
+				movement->y = -(sprite.getPosition().y) + upBoundOffset;
+			}
+			else
+			{
+				movement->y = 0;
+			}
+		}
+		if (sprite.getPosition().y + movement->y > (1080 - downBoundOffset))
+		{
+			if (sprite.getPosition().y != 1080 - downBoundOffset)
+			{
+				movement->y = (1080 - downBoundOffset) - sprite.getPosition().y;
+			}
+			else
+			{
+				movement->y = 0;
 			}
 		}
 	}
@@ -344,22 +636,35 @@ public:
 		Vector2f movement;
 		if (up)
 		{
-			movement.y -= 1.0f * yVelocity;
+			movement.y -= 1.0f;
 		}
 
 		if (down) 
 		{
-			movement.y += 1.0f * yVelocity;
+			movement.y += 1.0f;
 		}
 		if (left)
 		{
-			movement.x -= 1.0f * xVelocity;
+			movement.x -= 1.0f;
 		}
 		if (right)
 		{
-			movement.x += 1.0f * xVelocity;
+			movement.x += 1.0f;
 		}
 
+		if (movement.x != 0.0f || movement.y != 0.0f)
+		{
+			float length = sqrt(movement.x * movement.x + movement.y * movement.y);
+			movement.x /= length;
+			movement.y /= length;
+
+			// Reapply consistent speed
+			float consistentSpeed = min(xVelocity, yVelocity);
+			movement.x *= consistentSpeed;
+			movement.y *= consistentSpeed;
+		}
+
+		boundsHandler(&movement);
 		animationHandler(animationClock);
 
 		//Move sprite
@@ -371,5 +676,3 @@ public:
 		return sprite.getPosition();
 	}
 };
-
-#pragma once
