@@ -67,6 +67,12 @@ public:
 			Color color(146, 146, 146);
 			window.clear(color);
 			//Update
+			if (spawnWeaponBool && player.getCombatStance() && player.isUpTexture())
+			{
+				weapon.update(player, window);
+				weapon.draw(window);
+			}
+
 			if (spawnPlayerBool)
 			{
 				player.update(animationClock);
@@ -75,7 +81,7 @@ public:
 				player.draw(window);
 			}
 
-			if (spawnWeaponBool && player.getCombatStance())
+			if (spawnWeaponBool && player.getCombatStance() && !player.isUpTexture())
 			{
 				weapon.update(player, window);
 				weapon.draw(window);

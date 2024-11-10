@@ -105,6 +105,18 @@ public:
 		return combatStance;
 	}
 
+	bool isUpTexture()
+	{
+		if (sprite.getTexture() == &CSUpIdleTexture || sprite.getTexture() == &CSUpWalk1Texture || sprite.getTexture() == &CSUpWalk2Texture)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	void setCombatStance(bool set)
 	{
 		if (combatStance == set)

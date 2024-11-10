@@ -12,7 +12,7 @@ private:
 	int xOffset = 150;
 	int yOffset = 75;
 
-	float rotationRadius = 80.0f;
+	float rotationRadius = 60.0f;
 
 public:
 	Weapon(float x, float y)
