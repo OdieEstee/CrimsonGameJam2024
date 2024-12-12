@@ -12,21 +12,39 @@ class Bullet {
 private:
 	Sprite sprite;
 	Texture texture;
+
+	//Velocity constant
+	int velocityCons = 2;
 	Vector2f velocity;
+
+	//Offset from gun
+	float offset = 50.0f;
+
+	//Scale constants
+	float xScale = .5f;
+	float yScale = .5f;
+
 public:
 	Bullet(Vector2f pos, RenderWindow &window)
 	{
 		sf::Vector2u textureSize = texture.getSize();
-		sprite.setOrigin(textureSize.x / 2.0f, textureSize.y / 2.0f);
-
-		sprite.setScale(5.0f, 5.0f);
+		sprite.setOrigin(((sprite.getLocalBounds().width) - 10) / 2, (sprite.getLocalBounds().height / 2) + 10);
 
 		texture.loadFromFile("Textures/PistolBullet.png");
+		
 		sprite.setTexture(texture);
-		sprite.setPosition(pos);
 		
 		Vector2i mousePos = Mouse::getPosition(window);
 
+		if (mousePos.x < pos.x)
+		{
+			sprite.setScale(xScale, -yScale);
+		}
+		else
+		{
+			sprite.setScale(xScale, yScale);
+		}
+		
 		float deltaX = mousePos.x - pos.x;
 		float deltaY = mousePos.y - pos.y;
 		float alpha = atan2(deltaY, deltaX);
@@ -39,8 +57,13 @@ public:
 			direction /= length;  // Normalize the direction
 		}
 
-		velocity.x = direction.x * 2;
-		velocity.y = direction.y * 2;
+		velocity.x = direction.x * velocityCons;
+		velocity.y = direction.y * velocityCons;
+
+		Vector2f position;
+		position.x = pos.x + direction.x * offset;
+		position.y = pos.y + direction.y * offset;
+		sprite.setPosition(position);
 	}
 
 	Vector2f getPosition()

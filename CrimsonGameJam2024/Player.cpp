@@ -2,6 +2,7 @@
 
 #include "SFML/Graphics.hpp"
 #include <iostream>
+#include "Enviroment.cpp"
 
 using namespace std;
 using namespace sf;
@@ -55,27 +56,31 @@ private:
 	bool recentRight;
 
 	//Velocity constants
-	float xVelocity = 10.0f;
-	float yVelocity = 10.0f;
+	float xVelocity;
+	float yVelocity;
 
 	//Animation Clock constant
 	int animationClockMil = 500;
 
 	//Global bounds offset constants
-	int upBoundOffset = 50;
-	int downBoundOffset = 53;
-	int leftBoundOffset = 37;
-	int rightBoundOffset = 44;
+	int upBoundOffset;
+	int downBoundOffset;
+	int leftBoundOffset;
+	int rightBoundOffset;
 
 	//Combat stance boolean
 	bool combatStance;
 
+	//Scale constants
+	float xScale = 5.0f;
+	float yScale = 5.0f;
+
 public:
-	//Constructor with parameters for scale (defualt = 1)
-	Player(float x, float y) 
+	//Constructor
+	Player() 
 	{
 		//Set scale of sprite to <x,y>
-		sprite.setScale(Vector2f(x, y));
+		sprite.setScale(Vector2f(xScale, yScale));
 
 		//Initialize booleans for pressed key
 		up = false;
@@ -98,11 +103,37 @@ public:
 		sprite.setOrigin((sprite.getLocalBounds().width) / 2, (sprite.getLocalBounds().height / 2) - 2);
 
 		sprite.setPosition(500, 500);
+
+		xVelocity = 5;
+		yVelocity = 5;
+
+		upBoundOffset = 50;
+		downBoundOffset = 53;
+		leftBoundOffset = 37;
+		rightBoundOffset = 44;
 	}
 
 	bool getCombatStance()
 	{
 		return combatStance;
+	}
+
+	void setVelocity(float vel)
+	{
+		xVelocity = yVelocity = vel;
+	}
+
+	void setPosition(float x, float y)
+	{
+		sprite.setPosition(x, y);
+	}
+
+	void setBounds(int up, int down, int left, int right)
+	{
+		upBoundOffset = up;
+		downBoundOffset = down;
+		leftBoundOffset = left;
+		rightBoundOffset = right;
 	}
 
 	bool isUpTexture()

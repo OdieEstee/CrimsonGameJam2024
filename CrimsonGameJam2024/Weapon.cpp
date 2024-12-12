@@ -2,47 +2,84 @@
 #include <vector>
 
 #include "Player.cpp"
-#include "Bullet.cpp"
 #define PI 3.14159265358979323846
 
 class Weapon {
 private:
 	Sprite sprite;
-	Texture testTexture;
+	Texture pistolTexture;
+	Texture rifleTexture;
 
 	//Position from player offsets constants
 	int xOffset = 150;
 	int yOffset = 75;
 
-	int xScale;
-	int yScale;
+	//Scale constants
+	float xScale = 5.0f;
+	float yScale = 5.0f;
 
+	//Radius from player
 	float rotationRadius = 50.0f;
 
 	vector<Bullet> bullets;
 
+	//Boolean for state of weapon
+	bool isPistol;
+
 public:
-	Weapon(float x, float y)
+	Weapon()
 	{
 		//Set scale of sprite to <x,y>
-		sprite.setScale(Vector2f(x, y));
+		sprite.setScale(Vector2f(xScale, yScale));
 
-		xScale = x;
-		yScale = y;
-
-		testTexture.loadFromFile("Textures/Pistol.png");
-		sprite.setTexture(testTexture);
+		pistolTexture.loadFromFile("Textures/Pistol.png");
+		rifleTexture.loadFromFile("Textures/Rifle.png");
+		sprite.setTexture(pistolTexture);
 
 		sprite.setOrigin((sprite.getLocalBounds().width) / 2, (sprite.getLocalBounds().height / 2) - 2);
+
+		isPistol = true;
+
+		setPistol(true);
 	}
 
-	void shoot(Clock bulletClock, RenderWindow &window)
+	void setPistol(bool set)
 	{
-		if (bulletClock.getElapsedTime().asMilliseconds() >= 100)
+		if (set == isPistol)
 		{
-			Bullet newBullet(sprite.getPosition(), window);
-			bullets.push_back(newBullet);
+			return;
 		}
+		if (!isPistol && set)
+		{
+			sprite.setScale(Vector2f(xScale, yScale));
+
+			sprite.setTexture(pistolTexture);
+
+			sprite.setOrigin((sprite.getLocalBounds().width) / 2, (sprite.getLocalBounds().height / 2) - 2);
+
+			isPistol = true;
+		}
+		if (isPistol && !set)
+		{
+			sprite.setScale(Vector2f(xScale, yScale));
+
+			sprite.setTexture(rifleTexture);
+
+			sprite.setOrigin((sprite.getLocalBounds().width) / 2 + 5, (sprite.getLocalBounds().height / 2) - 2);
+
+			isPistol = false;
+		}
+	}
+
+	bool getState()
+	{
+		return isPistol;
+	}
+
+	void shoot(RenderWindow &window)
+	{
+		Bullet newBullet(sprite.getPosition(), window);
+		bullets.push_back(newBullet);
 	}
 
 	void draw(RenderWindow& window)

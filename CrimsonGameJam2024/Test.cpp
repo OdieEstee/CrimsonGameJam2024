@@ -4,6 +4,7 @@ class Test {
 public:
 	bool spawnPlayerBool = false;
 	bool spawnWeaponBool = false;
+	bool spacebarPressed = false;
 
 	void spawnPlayer()
 	{
@@ -18,12 +19,12 @@ public:
 	void run()
 	{
 		//Initialize Player
-		Player player(5.0f, 5.0f);
+		Player player;
 		//Initialize Animation Clock
 		Clock animationClock;
 
 		//Initialize Weapon
-		Weapon weapon(5.0f, 5.0f);
+		Weapon weapon;
 
 		//Bullet clock
 		Clock bulletClock;
@@ -63,23 +64,46 @@ public:
 							}
 						}
 					}
-					if (spawnWeaponBool && player.getCombatStance())
-					{
-						if (event.type == Event::KeyPressed)
+					if (spawnWeaponBool && player.getCombatStance()) {
+						if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space) 
 						{
-							if (event.key.code == Keyboard::Space)
+							if (!spacebarPressed)
 							{
-								
-								weapon.shoot(bulletClock, window);
-								if (bulletClock.getElapsedTime().asMilliseconds() >= 100)
+								if (weapon.getState())
 								{
-									bulletClock.restart();
+									if (bulletClock.getElapsedTime().asMilliseconds() >= 100)
+									{
+										weapon.shoot(window); // Fire the weapon
+										bulletClock.restart(); // Restart the cooldown clock
+										spacebarPressed = true;
+									}
+								}
+								else
+								{
+									spacebarPressed = true;
 								}
 							}
 						}
+
+						if (event.type == Event::KeyReleased && event.key.code == Keyboard::Space) 
+						{
+							// Spacebar released
+							spacebarPressed = false;
+
+						}
+						if (spacebarPressed && !weapon.getState())
+						{
+							if (bulletClock.getElapsedTime().asMilliseconds() >= 100) 
+							{
+								weapon.shoot(window); // Fire the weapon
+								bulletClock.restart(); // Restart the cooldown clock
+							}
+						}
+						
+
+						
 					}
 				}
-				
 			}
 
 			Color color(146, 146, 146);
@@ -93,18 +117,19 @@ public:
 				{
 					bullet.draw(window);
 				}
-			}
-
-			if (spawnPlayerBool)
-			{
+				
 				player.update(animationClock);
 				if (animationClock.getElapsedTime().asMilliseconds() >= 500)
 					animationClock.restart();
 				player.draw(window);
 			}
-
-			if (spawnWeaponBool && player.getCombatStance() && !player.isUpTexture())
+			else if (spawnWeaponBool && player.getCombatStance() && !player.isUpTexture())
 			{
+				player.update(animationClock);
+				if (animationClock.getElapsedTime().asMilliseconds() >= 500)
+					animationClock.restart();
+				player.draw(window);
+
 				weapon.update(player, window);
 				weapon.draw(window);
 				for (Bullet& bullet : weapon.getBullets())
@@ -112,6 +137,14 @@ public:
 					bullet.draw(window);
 				}
 			}
+			else if (spawnPlayerBool && !player.getCombatStance())
+			{
+				player.update(animationClock);
+				if (animationClock.getElapsedTime().asMilliseconds() >= 500)
+					animationClock.restart();
+				player.draw(window);
+			}
+
 			window.display();
 		}
 	}
